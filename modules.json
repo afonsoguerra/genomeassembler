@@ -73,6 +73,31 @@
                         "git_sha": "dbf496251becaa54933305bb494b880253a84ee6",
                         "installed_by": ["modules"]
                     },
+                    "purgedups/pbcstat": {
+                        "branch": "master",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
+                        "installed_by": ["modules"]
+                    },
+                    "purgedups/calcuts": {
+                        "branch": "master",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
+                        "installed_by": ["modules"]
+                    },
+                    "purgedups/splitfa": {
+                        "branch": "master",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
+                        "installed_by": ["modules"]
+                    },
+                    "purgedups/purgedups": {
+                        "branch": "master",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
+                        "installed_by": ["modules"]
+                    },
+                    "purgedups/getseqs": {
+                        "branch": "master",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
+                        "installed_by": ["modules"]
+                    },
                     "ragtag/patch": {
                         "branch": "master",
                         "git_sha": "62775d90df7565c82bd4ceedca70149529820cff",

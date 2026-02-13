@@ -271,6 +271,11 @@
                 "hifiasm_args": {
                     "type": "string",
                     "description": "Extra arguments passed to `hifiasm`"
+                },
+                "purge_dups": {
+                    "type": "boolean",
+                    "description": "Run purge_dups to remove haplotigs and overlaps after assembly",
+                    "default": false
                 }
             }
         },

@@ -7,6 +7,7 @@ include { MAP_TO_REF } from '../mapping/map_to_ref/main'
 include { RUN_LIFTOFF } from '../liftoff/main'
 include { RAGTAG_PATCH } from '../../../modules/nf-core/ragtag/patch/main'
 include { QC } from '../qc/main'
+include { PURGE_DUPS } from '../purge_dups/main'
 
 
 workflow ASSEMBLE {
@@ -200,6 +201,14 @@ workflow ASSEMBLE {
                 MAP_TO_REF.out.ch_aln_to_ref_bam.set { ch_ref_bam }
             }
         }
+    }
+    /*
+    Purge duplicates
+    */
+    if (params.purge_dups) {
+        PURGE_DUPS(ch_assembly, longreads)
+        PURGE_DUPS.out.purged_assembly.set { ch_assembly }
+        ch_versions = ch_versions.mix(PURGE_DUPS.out.versions)
     }
     /*
     QC on initial assembly
