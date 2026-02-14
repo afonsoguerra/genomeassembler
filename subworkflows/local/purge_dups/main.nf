@@ -33,9 +33,9 @@ workflow PURGE_DUPS {
     )
     ch_versions = ch_versions.mix(MINIMAP2_READS.out.versions)
     
-    // Step 3: Self-align split assembly
+    // Step 3: Self-align split assembly (reference empty = self-alignment)
     PURGEDUPS_SPLITFA.out.split_fasta
-        .map { meta, fasta -> [meta, fasta, fasta] }
+        .map { meta, fasta -> [meta, fasta, []] }
         .set { ch_minimap2_self_input }
 
     MINIMAP2_SELF(
