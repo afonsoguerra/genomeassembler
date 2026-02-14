@@ -19,22 +19,31 @@ workflow PURGE_DUPS {
     ch_versions = ch_versions.mix(PURGEDUPS_SPLITFA.out.versions)
     
     // Step 2: Align reads to assembly for coverage
+    reads
+        .join(assembly)
+        .map { meta, reads_file, fasta -> [meta, reads_file, fasta] }
+        .set { ch_minimap2_reads_input }
+
     MINIMAP2_READS(
-        reads,
-        assembly.map { meta, fasta -> [fasta] },
-        true,  // bam_format
-        false, // cigar_paf
-        false  // cigar_bam
+        ch_minimap2_reads_input,
+        false,  // bam_format (PAF needed for pbcstat)
+        false,  // bam_index_extension
+        false,  // cigar_paf
+        false   // cigar_bam
     )
     ch_versions = ch_versions.mix(MINIMAP2_READS.out.versions)
     
     // Step 3: Self-align split assembly
+    PURGEDUPS_SPLITFA.out.split_fasta
+        .map { meta, fasta -> [meta, fasta, fasta] }
+        .set { ch_minimap2_self_input }
+
     MINIMAP2_SELF(
-        PURGEDUPS_SPLITFA.out.split_fasta,
-        PURGEDUPS_SPLITFA.out.split_fasta.map { meta, fasta -> [fasta] },
-        false, // bam_format
-        false, // cigar_paf
-        false  // cigar_bam
+        ch_minimap2_self_input,
+        false,  // bam_format
+        false,  // bam_index_extension
+        false,  // cigar_paf
+        false   // cigar_bam
     )
     
     // Step 4: Calculate coverage stats
