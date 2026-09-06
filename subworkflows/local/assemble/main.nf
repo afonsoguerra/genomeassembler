@@ -70,7 +70,7 @@ workflow ASSEMBLE {
                     .join(ont_reads)
                     .set { hifiasm_inputs }
                 HIFIASM(hifiasm_inputs, [[], [], []], [[], [], []], [[], []])
-                GFA_2_FA_HIFI(HIFIASM.out.processed_unitigs)
+                GFA_2_FA_HIFI(HIFIASM.out.primary_contigs)
                 GFA_2_FA_HIFI.out.contigs_fasta.set { ch_assembly }
 
                 ch_versions = ch_versions.mix(HIFIASM.out.versions).mix(GFA_2_FA_HIFI.out.versions)
@@ -81,7 +81,7 @@ workflow ASSEMBLE {
                     .map { meta, ontreads -> [meta, ontreads, []] }
                     .set { hifiasm_inputs }
                 HIFIASM_ONT(hifiasm_inputs, [[], [], []], [[], [], []], [[], []])
-                GFA_2_FA_ONT(HIFIASM_ONT.out.processed_unitigs)
+                GFA_2_FA_ONT(HIFIASM_ONT.out.primary_contigs)
                 GFA_2_FA_ONT.out.contigs_fasta.set { ch_assembly }
                 ch_versions = ch_versions.mix(HIFIASM_ONT.out.versions).mix(GFA_2_FA_ONT.out.versions)
             }
@@ -92,7 +92,7 @@ workflow ASSEMBLE {
                     .set { hifiasm_inputs }
                 HIFIASM(hifiasm_inputs, [[], [], []], [[], [], []], [[], []])
 
-                GFA_2_FA_HIFI(HIFIASM.out.processed_unitigs)
+                GFA_2_FA_HIFI(HIFIASM.out.primary_contigs)
                 GFA_2_FA_HIFI.out.contigs_fasta.set { ch_assembly }
 
                 ch_versions = ch_versions.mix(HIFIASM.out.versions).mix(GFA_2_FA_HIFI.out.versions)
@@ -105,7 +105,7 @@ workflow ASSEMBLE {
                 .set { hifiasm_inputs }
             HIFIASM(hifiasm_inputs, [[], [], []], [[], [], []], [[], []])
 
-            GFA_2_FA_HIFI(HIFIASM.out.processed_unitigs)
+            GFA_2_FA_HIFI(HIFIASM.out.primary_contigs)
 
             ch_versions = ch_versions.mix(HIFIASM.out.versions).mix(GFA_2_FA_HIFI.out.versions)
 
@@ -135,7 +135,7 @@ workflow ASSEMBLE {
                     .map { meta, ontreads -> [meta, ontreads, []] }
                     .set { hifiasm_inputs }
                 HIFIASM_ONT(hifiasm_inputs,[[], [], []], [[], [], []], [[], []])
-                GFA_2_FA_ONT(HIFIASM_ONT.out.processed_unitigs)
+                GFA_2_FA_ONT(HIFIASM_ONT.out.primary_contigs)
                 GFA_2_FA_ONT.out.contigs_fasta
                     .join(
                         GFA_2_FA_HIFI.out.contigs_fasta
